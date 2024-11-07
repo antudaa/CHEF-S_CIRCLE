@@ -1,17 +1,16 @@
-// import { RequestHandler } from "express";
-// import catchAsync from "../../utils/catchAsync";
-// import { PaymentServices } from "./payment.service";
+import { RequestHandler } from "express";
+import catchAsync from "../../utils/catchAsync";
+import { PaymentServices } from "./payment.service";
+
+const confirmPayment: RequestHandler = catchAsync(async (req, res) => {
+    const { userId, consumerName, transactionId } = req.query;
+
+    const result = await PaymentServices.paymentConfirmationService(userId as string, transactionId as string, consumerName as string);
+
+    res.send(result);
+});
 
 
-
-// const confirmPayment: RequestHandler = catchAsync(async (req, res) => {
-//     const { transactionId, consumerName, status } = req.query;
-//     const result = await PaymentServices.paymentConfirmationService(transactionId as string, consumerName as string, status as string);
-
-//     res.send(result);
-// });
-
-
-// export const PaymentControllers = {
-//     confirmPayment,
-// }
+export const PaymentControllers = {
+    confirmPayment,
+}

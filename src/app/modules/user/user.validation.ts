@@ -12,7 +12,7 @@ const createUserValidationSchema = z.object({
     isPremium: z.boolean().optional().default(false),
     followers: z.array(z.string()).optional(),
     following: z.array(z.string()).optional(),
-    bio: z.string().optional(),
+    bio: z.string().optional().default(""),
     memberShipExpiration: z.date().optional(),
     favouriteRecipeList: z.array(z.string()).optional(),
     socialLinks: z.object({

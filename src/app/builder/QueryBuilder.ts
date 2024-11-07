@@ -41,7 +41,7 @@ class QueryBuilder<T> {
       if (!isNaN(price)) {
         this.modelQuery = this.modelQuery.find({
           ...queryObject,
-          pricePerHour: { $lte: price }, // Filter for facilities with pricePerHour less than or equal to the provided number
+          pricePerHour: { $lte: price },
         } as FilterQuery<T>);
       }
     } else {

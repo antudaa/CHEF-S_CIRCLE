@@ -3,6 +3,7 @@ import { IBaseUser } from "../GeneralUser/generalUser.interface";
 
 export type TAdmin = IBaseUser & {
   email: string;
+  name: string;
   password: string;
   role: "admin";
   permissions?: string[];

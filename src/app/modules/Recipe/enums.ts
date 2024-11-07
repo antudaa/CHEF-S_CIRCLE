@@ -16,7 +16,6 @@ export enum IngredientCategory {
 }
 
 export enum RecipeCategory {
-    
     Biryani = "Biryani",
     VEGETARIAN = 'Vegetarian',
     VEGAN = 'Vegan',
@@ -25,7 +24,9 @@ export enum RecipeCategory {
     KETO = 'Keto',
     DESSERT = 'Dessert',
     SOUPS = 'Soups',
-    SALADS = 'Salads',
+    RICE = "Rice",
+    SALAD = 'Salad',
+    GRILLED = 'Grilled',
     BREAKFAST = 'Breakfast',
     DINNER = 'Dinner',
     LUNCH = 'Lunch',
@@ -34,7 +35,9 @@ export enum RecipeCategory {
     APPETIZER = 'Appetizer',
     MAIN_COURSE = 'Main Course',
     SIDE_DISH = 'Side Dish',
-    PIZZA = 'Pizza'
+    PIZZA = 'Pizza',
+    PASTA = 'Pasta',
+    CURRY = 'Curry'
 }
 
 export enum Unit {
@@ -53,6 +56,7 @@ export enum Unit {
     SLICE = 'slice',
     LEAVES = 'leaves',
     Bunch = "bunch",
+    Clove = "clove"
 }
 
 export enum IngredientName {

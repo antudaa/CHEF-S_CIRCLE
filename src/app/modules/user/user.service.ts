@@ -56,7 +56,7 @@ const createUserIntoDB = async (payload: TUser) => {
 
   try {
     session.startTransaction();
-    
+
     // Prepare the user data
     const userData: Partial<TUser> = {
       ...payload,
@@ -96,8 +96,7 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
     const totalCount = await userQuery.getTotalCount();
 
     return {
-      total: totalCount,
-      data: users,
+      users, totalCount
     };
   } catch (error) {
     throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to fetch users');
@@ -117,6 +116,24 @@ const getUserByIdFromDB = async (id: string) => {
   }
 };
 
+const updateUserProfile = async (id: string, payload: Partial<TUser>) => {
+  try {
+    const result = await User.findByIdAndUpdate(
+      id,
+      payload,
+      { new: true }
+    )
+
+    if (!result) {
+      throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, "Unable to update!")
+    }
+
+    return result;
+  } catch (error) {
+    throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to update profile!");
+  }
+}
+
 // Block User Service
 const blockUserBySuperAdmin = async (id: string) => {
   try {
@@ -133,6 +150,24 @@ const blockUserBySuperAdmin = async (id: string) => {
     return result;
   } catch (error) {
     throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to block user');
+  }
+};
+
+const unBlockUserBySuperAdmin = async (id: string) => {
+  try {
+    const result = await User.findByIdAndUpdate(
+      id,
+      { status: 'active' },
+      { new: true },
+    );
+
+    if (!result) {
+      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    }
+
+    return result;
+  } catch (error) {
+    throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to unblock user');
   }
 };
 
@@ -160,6 +195,8 @@ export const UserService = {
   createUserIntoDB,
   getAllUsersFromDB,
   getUserByIdFromDB,
+  updateUserProfile,
   blockUserBySuperAdmin,
+  unBlockUserBySuperAdmin,
   deleteUserFromDB,
 };

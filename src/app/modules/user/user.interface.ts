@@ -2,6 +2,11 @@ import { Model, Types } from "mongoose";
 import { IBaseUser } from "../GeneralUser/generalUser.interface";
 import { USER_ROLE } from "./user.constant";
 
+export type TPayment = {
+  transactionId: string;
+  paymentStatus: string;
+}
+
 export type TUser = IBaseUser & {
   password: string;
   profileImage: string;
@@ -9,6 +14,7 @@ export type TUser = IBaseUser & {
   followers: Types.ObjectId[];
   following: Types.ObjectId[];
   user: Types.ObjectId;
+  name: string;
   bio?: string;
   memberShipExpiration?: Date;
   favouriteRecipeList: Types.ObjectId[];
@@ -23,6 +29,7 @@ export type TUser = IBaseUser & {
   };
   recipeCount?: number;
   isDeleted: boolean;
+  paymentInfo?: TPayment;
   passwordChangedAt: Date;
 }
 

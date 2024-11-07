@@ -36,6 +36,7 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   const result = await UserService.getAllUsersFromDB(req.query);
 
+  console.log('Get All User Route Called => ', result)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -57,6 +58,18 @@ const getUserById: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const UpdateUser: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await UserService.updateUserProfile(id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User data has been updated successfully.",
+    data: result,
+  });
+})
+
 // Block User by SuperAdmin Controller
 const blockUserBySuperAdmin: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -66,6 +79,18 @@ const blockUserBySuperAdmin: RequestHandler = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "User has been blocked successfully.",
+    data: result,
+  });
+});
+
+const unBlockUserBySuperAdmin: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await UserService.unBlockUserBySuperAdmin(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User has been unblock successfully.",
     data: result,
   });
 });
@@ -88,6 +113,8 @@ export const UserControllers = {
   createUser,
   getAllUsers,
   getUserById,
+  UpdateUser,
   blockUserBySuperAdmin,
+  unBlockUserBySuperAdmin,
   deleteUser,
 };

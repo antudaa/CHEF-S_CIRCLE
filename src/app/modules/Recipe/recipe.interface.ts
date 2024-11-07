@@ -56,6 +56,10 @@ export type TRecipe = {
     category: string;
     ingredients: TIngredient[];
     cookingTime: number;
+    preppingTime: number;
+    servings: number;
+    isPremium: boolean;
+    isTrending: boolean;
     publishStatus: 'publish' | 'unpublish';
     comments?: TComment[];
     likes?: number;

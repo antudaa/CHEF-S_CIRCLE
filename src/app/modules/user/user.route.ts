@@ -16,10 +16,22 @@ router.get('/:id',
   UserControllers.getUserById,
 );
 
+router.patch('/:id',
+  authenticateUser,
+  authorizeAdmin,
+  UserControllers.UpdateUser,
+);
+
 router.patch('/block/:id',
   authenticateUser,
   authorizeAdmin,
   UserControllers.blockUserBySuperAdmin,
+);
+
+router.patch('/unblock/:id',
+  authenticateUser,
+  authorizeAdmin,
+  UserControllers.unBlockUserBySuperAdmin,
 );
 
 router.delete('/:id',

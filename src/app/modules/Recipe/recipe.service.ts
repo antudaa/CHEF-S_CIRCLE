@@ -34,26 +34,27 @@ const softDeleteRecipe = async (id: Types.ObjectId) => {
 };
 
 const findRecipeById = async (id: Types.ObjectId) => {
-    const result = await Recipe.findRecipeById(id);
+    const result = await Recipe.findById(id).populate("author");
     return result;
 };
 
-const findPublishedRecipes = async (query: Record<string, unknown>) => {
-    let modelQuery = Recipe.find({ publishStatus: 'publish' });
 
-    // Apply QueryBuilder for dynamic search, filter, sort, paginate
-    const queryBuilder = new QueryBuilder<TRecipe>(modelQuery, query);
-    queryBuilder.search(['name', 'description', 'category'])
+const findPublishedRecipes = async (query: Record<string, unknown>) => {
+    const recipeQuery = new QueryBuilder(Recipe.find({ isDeleted: false }), query)
+        .search(['name', 'description', 'category'])
         .filter()
         .sort()
         .paginate()
         .fields();
 
-    const recipes = await queryBuilder.modelQuery.exec();
-    const totalCount = await queryBuilder.getTotalCount();
+    const [recipes, totalCount] = await Promise.all([
+        recipeQuery.modelQuery.populate("author"),
+        recipeQuery.getTotalCount(),
+    ]);
 
-    return { recipes, totalCount };
+    return { recipes, totalCount }
 };
+
 
 const findRecipesByCategory = async (category: RecipeCategory, query: Record<string, unknown>) => {
     let modelQuery = Recipe.find({ category, publishStatus: 'publish' });
@@ -134,7 +135,7 @@ const updateComment = async (recipeId: Types.ObjectId, commentId: Types.ObjectId
 
     // Save the updated recipe document
     await recipe.save();
-    
+
     // Return the updated comment
     return recipe.comments[commentIndex];
 };

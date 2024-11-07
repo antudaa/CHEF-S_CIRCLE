@@ -60,7 +60,6 @@ const findRecipeById: RequestHandler = catchAsync(async (req, res) => {
 // Get all published recipes
 const findPublishedRecipes: RequestHandler = catchAsync(async (req, res) => {
     const query = req.query || {};
-    console.log(req.query);
     const { recipes, totalCount } = await RecipeServices.findPublishedRecipes(query);
 
     sendResponse(res, {

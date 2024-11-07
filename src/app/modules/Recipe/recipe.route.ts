@@ -21,12 +21,12 @@ router.delete('/:id',
 );
 // Find Single Recipe
 router.get('/:id',
-    authenticateUser,
+    // authenticateUser,
     RecipeControllers.findRecipeById,
 );
 // Find Published Recipes
 router.get('/',
-    authenticateUser,
+    // authenticateUser,
     RecipeControllers.findPublishedRecipes,
 );
 // Find Recipes By Category

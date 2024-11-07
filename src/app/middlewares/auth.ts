@@ -9,7 +9,9 @@ import catchAsync from "../utils/catchAsync";
 import { TUserRole } from "../modules/user/user.interface";
 
 const authenticateUser = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers)
   const token = req.header("Authorization")?.replace("Bearer ", "");
+  console.log("Token", token);
 
   // checking if the token is missing
   if (!token) {

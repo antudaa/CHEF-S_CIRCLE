@@ -43,7 +43,11 @@ export const recipeValidationSchema = z.object({
     images: z.array(z.string()).optional(),
     category: z.nativeEnum(RecipeCategory),
     ingredients: z.array(ingredientSchema),
-    cookingTime: z.number().min(1), // Must be at least 1 minute
+    cookingTime: z.number().min(1),
+    preppingTime: z.number().min(1),
+    servings: z.number().min(1),
+    isPremium: z.boolean().default(false),
+    isTrending: z.boolean().default(false),
     publishStatus: z.enum(['publish', 'unpublish']),
     comments: z.array(commentSchema).optional(),
     likes: z.number().default(0),

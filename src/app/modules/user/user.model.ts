@@ -1,8 +1,22 @@
 import { Schema, model, Document } from "mongoose";
-import { TUser, UserModel } from "./user.interface";
+import { TPayment, TUser, UserModel } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
 import { UserStatus } from "./user.constant";
+
+const paymentSchema = new Schema<TPayment>(
+  {
+    transactionId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    paymentStatus: {
+      type: String,
+      required: true,
+    }
+  }
+)
 
 // User Schema Definition
 const userSchema = new Schema<TUser>(
@@ -13,6 +27,10 @@ const userSchema = new Schema<TUser>(
       unique: true,
       lowercase: true,
       trim: true,
+    },
+    name: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,
@@ -53,6 +71,7 @@ const userSchema = new Schema<TUser>(
     bio: {
       type: String,
       required: false,
+      default: ""
     },
     memberShipExpiration: {
       type: Date,
@@ -81,7 +100,11 @@ const userSchema = new Schema<TUser>(
     recipeCount: {
       type: Number,
       default: 0,
-    }
+    },
+    paymentInfo: {
+      type: paymentSchema,
+      required: false,
+    },
   },
   {
     versionKey: false,

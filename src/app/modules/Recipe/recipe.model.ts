@@ -104,6 +104,24 @@ const recipeSchema = new Schema({
         type: Number,
         required: true,
     },
+    preppingTime: {
+        type: Number,
+        required: true,
+    },
+    servings: {
+        type: Number,
+        required: true,
+    },
+    isPremium: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    isTrending: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     publishStatus: {
         type: String,
         enum: ['publish', 'unpublish'],

@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'http://localhost:5173',
+    'http://localhost:3000',
     'https://api.imgbb.com/1/upload',
   ],
   credentials: true,
