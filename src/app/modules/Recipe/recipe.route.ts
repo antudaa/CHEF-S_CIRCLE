@@ -24,6 +24,10 @@ router.get('/:id',
     // authenticateUser,
     RecipeControllers.findRecipeById,
 );
+router.get('/author/:authorId',
+    authenticateUser,
+    RecipeControllers.findRecipesByAuthor,
+);
 // Find Published Recipes
 router.get('/',
     // authenticateUser,

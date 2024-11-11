@@ -12,13 +12,13 @@ router.get('/',
 
 router.get('/:id',
   authenticateUser,
-  authorizeAdmin,
+  // authorizeAdmin,
   UserControllers.getUserById,
 );
 
 router.patch('/:id',
   authenticateUser,
-  authorizeAdmin,
+  // authorizeAdmin,
   UserControllers.UpdateUser,
 );
 

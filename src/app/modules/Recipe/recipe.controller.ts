@@ -73,6 +73,20 @@ const findPublishedRecipes: RequestHandler = catchAsync(async (req, res) => {
     });
 });
 
+const findRecipesByAuthor: RequestHandler = catchAsync(async (req, res) => {
+    const { authorId } = req.params; 
+
+    // Call the service function that retrieves recipes by author
+    const result = await RecipeServices.findRecipesByAuthor(new Types.ObjectId(authorId));
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: `Recipes retrieved for author with ID: ${authorId}`,
+        data: result,
+    });
+});
+
 // Get recipes by category with query support
 const findRecipesByCategory: RequestHandler = catchAsync(async (req, res) => {
     const { category } = req.params;
@@ -273,6 +287,7 @@ export const RecipeControllers = {
     updateRecipe,
     softDeleteRecipe,
     findRecipeById,
+    findRecipesByAuthor,
     findPublishedRecipes,
     findRecipesByCategory,
     addCommentToRecipe,

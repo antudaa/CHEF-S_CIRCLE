@@ -13,7 +13,14 @@ const loginUser: RequestHandler = catchAsync(async (req, res) => {
   res.cookie('refreshToken', refreshToken, {
     secure: config.node_env === 'production',
     httpOnly: true,
-  })
+    sameSite: 'strict',
+  });
+  
+  res.cookie('accessToken', accessToken, {
+    secure: config.node_env === 'production',
+    httpOnly: true,
+    sameSite: 'strict',
+  });
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -44,6 +51,30 @@ const changePassword: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const logoutUser: RequestHandler = catchAsync(async (req, res) => {
+  res.cookie('accessToken', '', {
+    httpOnly: true,
+    secure: config.node_env === 'production',
+    expires: new Date(0),
+    sameSite: 'strict',
+  });
+
+  res.cookie('refreshToken', '', {
+    httpOnly: true,
+    secure: config.node_env === 'production',
+    expires: new Date(0),
+    sameSite: 'strict',
+  });
+
+  // Optionally send a response back indicating logout success
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Password updated successfully",
+    // data: result,
+  });
+});
+
 
 const refreshToken: RequestHandler = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -60,5 +91,6 @@ const refreshToken: RequestHandler = catchAsync(async (req, res) => {
 export const AuthControllers = {
   loginUser,
   changePassword,
+  logoutUser,
   refreshToken,
 };

@@ -38,6 +38,12 @@ const findRecipeById = async (id: Types.ObjectId) => {
     return result;
 };
 
+const findRecipesByAuthor = async (authorId: Types.ObjectId,) => {
+    let result = Recipe.find({ author: authorId, isDeleted: false });
+
+    return result;
+};
+
 
 const findPublishedRecipes = async (query: Record<string, unknown>) => {
     const recipeQuery = new QueryBuilder(Recipe.find({ isDeleted: false }), query)
@@ -215,6 +221,7 @@ export const RecipeServices = {
     updateRecipe,
     softDeleteRecipe,
     findRecipeById,
+    findRecipesByAuthor,
     findPublishedRecipes,
     findRecipesByCategory,
     addCommentToRecipe,

@@ -14,6 +14,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:3000',
+    'https://chef-s-circle-frontend.vercel.app',
     'https://api.imgbb.com/1/upload',
   ],
   credentials: true,

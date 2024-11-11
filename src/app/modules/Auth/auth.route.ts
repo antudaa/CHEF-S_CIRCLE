@@ -13,7 +13,7 @@ const router = express.Router();
 router.post(
   "/register-admin",
   authenticateUser,
-  authorizeAdmin,
+  // authorizeAdmin,
   requestValidator(AdminValidation.createAdminValidationSchema),
   UserControllers.createAdmin,
 );
@@ -43,7 +43,11 @@ router.post(
 router.post('/refresh-token',
   requestValidator(AuthValidation.refreshTokenValidationSchema),
   AuthControllers.refreshToken,
+);
 
-)
+router.post(
+  '/logout',
+  AuthControllers.logoutUser,
+);
 
 export const AuthRoutes = router;
